@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <title>Admin Pie Editing - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :adminnav %>
+        <div class="container">
+            <br>
+            <h1 class="display-3">Pie Menu Editing Mode</h1>
+            <hr class="my-4"><br>
+          
+            <% if (@pies.nil? || @pies.empty?) %>
+                <p class="lead">There are no pies in the menu.</p>
+                <hr class="my-4"><br>
+            <% else %>
+                <%= erb :pietable %>
+                <hr class="my-4"><br>
+            <% end %>
+          
+            <p class="lead">Add a Pie to the Menu:</p>
+            <!-- Form to add new pies -->
+            <form action="/addpie" method="POST">
+                <label class="col-form-label" for="add_pie_name">Name:</label><br>
+                <input type="text" name="add_pie_name" class="form-control" placeholder="the name of the pie" id="add_pie_name" value="<%=h params[:add_pie_name] %>" required><br>
+
+                <label class="col-form-label" for="add_pie_description">Description:</label><br>
+                <input type="text" name="add_pie_description" class="form-control" placeholder="the description of the pie" id="add_pie_description" value="<%=h params[:add_pie_description] %>" required><br>
+
+                <label class="col-form-label" for="add_pie_price">Price:</label><br>
+                <input type="text" name="add_pie_price" class="form-control" placeholder="the price of the pie" id="add_pie_price" value="<%=h params[:add_pie_price] %>" required><br>
+              
+                <button type="submit" class="btn btn-primary">Add Pie</button>
+            </form>
+            
+            <% unless (@pies.nil? || @pies.empty?) %>
+                <hr class="my-4"><br>
+          
+                <p class="lead">Update Pie Information:</p>
+                <!-- Form to update pie information -->
+                <form action="/updatepie" method="POST">
+                    <label class="col-form-label" for="update_pie_id">Choose the ID of the pie you want to update:</label><br>
+                    <select id="update_pie_id" name="update_pie_id" value="<%=h params[:update_pie_id] %>">
+                        <% @pies.each do |pie| %>
+                            <option value = "<%=h pie[0] %>"><%=h pie[0] %></option>
+                        <% end %>
+                    </select><br><br>
+                    
+                    <label class="col-form-label" for="update_pie_name">Name:</label><br>
+                    <input type="text" name="update_pie_name" class="form-control" placeholder="the new name of the pie" id="update_pie_name" value="<%=h params[:update_pie_name] %>" required><br>
+
+                    <label class="col-form-label" for="update_pie_description">Description:</label><br>
+                    <input type="text" name="update_pie_description" class="form-control" placeholder="the new description of the pie" id="update_pie_description" value="<%=h params[:update_pie_description] %>" required><br>
+                  
+                    <label class="col-form-label" for="update_pie_price">Price:</label><br>
+                    <input type="text" name="update_pie_price" class="form-control" placeholder="the new price of the pie" id="update_pie_price" value="<%=h params[:update_pie_price] %>" required><br>
+
+                    <button type="submit" class="btn btn-primary">Update Pie</button>
+                </form>
+            <% end %>
+        </div>
+        <%= erb :adminfooter %>
+    </body>
+</html>

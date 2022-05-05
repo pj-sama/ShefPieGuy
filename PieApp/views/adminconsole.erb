@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :adminnav %>
+        <br><br>
+            <div class="container">
+            <h1 class="display-3">Admin Console</h1>
+            <hr class="my-4">          
+            
+            <% unless @orders.nil? %>
+              <% if @orders.length == 0 %>
+                <p> There are no active orders in the Database right now... </p>
+              <% else %>
+                <%= erb :ordertable %>
+              <% end %>
+            <% end %>
+        </div>
+
+        <div class="container">
+                <h1 class="display-3">load/update</h1>
+                <hr class="my-4">
+                <% if @val != "empty" %>
+                    <div class="alert alert-dismissible alert-info">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <%= @val %>
+                    </div>
+                <% end %>
+                <a class="btn btn-primary btn-lg" href="/updatedb" role="button">Update database with new orders</a>
+                <a class="btn btn-primary btn-lg" href="/bestpublicity" role="button">Retrieve most received publicity tweet</a>
+                <a class="btn btn-primary btn-lg" href="/hardreset" role="button">Twitter reset</a>
+                  <form action="/addpublicity" method="get">
+                    <input  type="text" class="col-form-label" name="publicity" placeholder="Publicity Text" value="<%=h params[:publi] %>">
+                    <button type="submit" class="btn btn-primary btn-sm">Send Publicity Tweet</button>
+                  </form>
+              </div>
+        <%= erb :adminfooter %>
+    </body>
+</html>

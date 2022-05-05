@@ -1,0 +1,24 @@
+:root {
+    --main-shade:#a5d6a7;
+    --dark-shade:#75a478;
+    --light-shade:#d7ffd9;
+    --title-shade:#537756;
+}
+.bg-primary{
+    background-color: var(--dark-shade) !important;
+}
+.navbar-brand{
+    font-family: 'Molle', cursive;
+    font-size: 1.75em !important;
+    color: var(--title-shade) !important;
+}
+.display-3{
+    font-size: 2em;
+}
+footer p{
+    font-size: 0.75em;
+}
+.centre{
+    margin: auto !important;
+    width: 50% !important;
+}

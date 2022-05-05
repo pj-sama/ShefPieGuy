@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <title>Admin Offer Editing - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :adminnav %>
+        <div class="container">
+            <br><br>
+            <h1><span style="font-family: Molle, cursive;">SheffPieGuy Admin Offers</span></h1>
+            <p class="lead">Offers editing mode</p>
+
+            <hr class="my-4">
+          
+            <% if (@offers.nil? || @offers.empty?) %>
+                <h2>There arent any current offers</h2>
+                <hr class="my-4">
+            <% else%>
+                <%= erb :offertable %>
+                <hr class="my-4">
+            <% end %>
+            
+            <% if (@useroffers.nil?||@useroffers.empty?) %>
+                <h2>There arent any personal offers</h2>
+                <hr class="my-4">
+            <% else %>
+                <%= erb :useroffertable %>
+                <hr class="my-4">
+            <% end %>   
+
+            <h2>Add Offers</h2>
+                <!-- Form to add new offers -->
+                <form action="/addoffers" method="POST">
+                    <label class="col-form-label" for="applyTo">Apply offer to:</label><br>
+                    <select class="custom-select" id="applyTo" name="applyTo" value="<%=h params[:apply] %>">
+                        <option value="All">All</option>
+                        <% @users.each do |user| %>
+                            <option value = "<%=h user[0] %>"><%=h user[0] %></option>
+                        <% end %>
+                    </select><br><br>
+
+                    <label class="col-form-label" for="txtbxMultiplier">Offer Multiplier:</label><br>
+                    <input type="text" name="multiplier" class="form-control" placeholder="A decimal representing the deal, e.g 0.5 for 50% off" id="txtbxMultiplier" autocorrect=off autocapitalize=words value="<%=h params[:multiplier] %>" required><br>
+
+                    <label for="txtbxDescription" class="col-form-label">Offer Description</label><br>
+                    <input type="text" name="description" class="form-control" placeholder="A description of the offer" id="txtbxDescription" autocorrect=off autocapitalize=words value="<%=h params[:description] %>" required><br><br>
+
+                    <button type="submit" class="btn btn-primary">Add Offer</button>
+                </form>
+
+            <hr class="my-4">
+
+            <% unless (@personal_offers.nil?||@personal_offers.empty?) %>
+                <!-- Form to add a personal offer to another user -->
+                <form action="/editoffer" method="POST">
+                    <label class="col-form-label" for="userID">UserID of who to apply offer to:</label><br>
+                    <select class="custom-select" id="userID" name="userID" value="<%=h params[:userID] %>">
+                        <% @users.each do |offer| %>
+                        <option value = "<%=h offer[0] %>"><%=h offer[0] %></option>
+                    <% end %>
+                </select><br><br>
+
+                <label class="col-form-label" for="deleteID">OfferID of offer to assign:</label><br>
+                <select class="custom-select" id="offerID" name="offerID" value="<%=h params[:offerID] %>">
+                    <% @personal_offers.each do |offer| %>
+                        <% offer.each do |o| %>
+                            <option value = "<%=h o[0] %>"><%=h o[0] %></option>
+                        <% end %>
+                    <% end %>
+                </select><br><br>
+
+                <button type="submit" class="btn btn-primary">Assign offer</button>
+            </form>
+            <% end %>
+        </div>
+        <%= erb :adminfooter %>
+    </body>
+</html>

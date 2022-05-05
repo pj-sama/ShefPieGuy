@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <title>Data - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :nav %>
+        <div class="container">
+            <br><br>
+            <h1>Your <span style="font-family: Molle, cursive;">SheffPieGuy</span></h1>
+            <hr class="my-4">
+            <h2>Data</h2>
+            <h3>A sensitive topic...</h3>
+            <hr class="my-4">
+            <p>Along with the vision, came the aim to be open about the data saved about our customers. This company only stores data relevant to the business, that data being an ID unique to your Twitter account as well as address information. We value our customer's data so we insist on it only being used when needed, therefore, addresses are only actively accessed by those responsible for delivering your pie. In addition to this, previous orders attatched to your account will be stored for a specific amount of time. This covers the data we have stored about you. You can find sensitive information stored about you displayed below, as well as an option to remove your account (which will both delete all information stored about you and your account from the company, including any previous orders and current offers you may have available).</p>
+            <hr class="my-4">
+            <h2>Your data</h2>
+            <% unless (@user.nil?) %>
+                <table class="table">
+                    <tr>
+                        <th>User ID</th>
+                        <th>Post Code</th>
+                        <th>House Number</th>
+                        <th>Additional Info</th>
+                    </tr>
+                    <tr>
+                        <% @user.each do |u| %>
+                            <td><%=h u %></td>
+                        <% end %>
+                    </tr>
+                </table>
+            <% end %>
+            <hr class="my-4">
+            <h2>Update any Information</h2>
+            <p>If any of the address information is incorrect, please press the Edit Profile button and update it to avoid pies being sent to the wrong location!</p>
+            <a href="/userupdate"><button type="button" class="btn btn-primary btn-lg">Edit Profile</button></a>
+            <hr class="my-4">
+            <h2>Want to delete your account?</h2>
+            <p>Not reccomended, you would have to make a new account to order one of our pies! That would be an inconvenience!</p>
+            <a href="/deleteme"><button type="button" class="btn btn-primary btn-lg">Delete Account</button></a>
+        </div>
+        <%= erb :footer %>
+    </body>
+</html>

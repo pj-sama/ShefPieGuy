@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <title>User Offers - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :nav %>
+        <div class="container">
+            <br><br>
+            <h1>Offers at <span style="font-family: Molle, cursive;">SheffPieGuy</span></h1>
+            <h2>Here you can see all the current offers</h2>
+            <hr class="my-4">
+            <!-- If the array of offers is empty/doesnt exist -->
+            <% if (@offers.nil? || @offers.empty?) %>
+                <h2>There aren't any offers</h2>
+            <% else %>
+                <%= erb :offertable %>
+            <% end %>
+            
+            <!-- If the user isnt logged in and not admin-->
+            <% if (session[:user].nil?) %>
+                <h2>Please login to see if you have any personal offers</h2>
+            <% else %>
+                <!-- When there arent any personal offers & not admin -->
+                <% if ((@useroffers.nil?||@useroffers.empty?)) %>
+                    <h2>You have no personal offers</h2>
+                <% end %>
+                <!-- When there are personal offers & not admin -->
+                <% unless ((@useroffers.nil?||@useroffers.empty?)) %>
+                    <%= erb :useroffertable %>
+                <% end %>
+            <% end %>
+        </div>
+        
+        <% response.delete_cookie 'jlo' %>
+        <%= erb :footer %>
+    </body>
+</html>

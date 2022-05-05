@@ -1,0 +1,39 @@
+<div class="container">
+<br/><br/>
+<h2>All of the personal offers:</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <% if (session[:admin]==true) %>
+            <th>User ID</th>
+        <% end %>
+        <th>Offer ID</th>
+        <th>Multiplier</th>
+        <th>Description</th>
+        <% if (@edit=="t") %>
+            <th></th>
+        <% end %>
+    </tr>
+    </thead>
+    <% @useroffers.each do |row| %>
+        <tr>
+            <% if (session[:admin]==true) %>
+                <td><%=h row[0] %></td>
+            <% end %>
+            <% (0..2).each do |column| %>
+                <!-- Select the offer component of useroffer and iterate through that -->
+                <% @personal_offers.each do |personal| %>
+                    <% personal.each do |p| %>
+                        <% if p[0]==row[1] %>
+                            <td><%=h p[column] %></td>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+            <% if (@edit=="t") %>
+                <td><a href="deleteoffer/<%=h row[1] %>" class="btn btn-default btn-sm">Delete</a></td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+</div>

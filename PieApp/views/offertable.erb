@@ -1,0 +1,26 @@
+<div class="container">
+<br><br>
+<h2>All of the global offers:</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Offer ID</th>
+        <th>Multiplier</th>
+        <th>Description</th>
+        <% if (@edit=="t") %>
+            <th></th>
+        <% end %>
+    </tr>
+    </thead>
+    <% @offers.each do |row| %>
+        <tr>
+            <% (0..2).each do |column| %>
+                <td><%=h row[column] %></td>
+            <% end %>
+            <% if (@edit=="t") %>
+                <td><a href="deleteoffer/<%=h row[0] %>" class="btn btn-default btn-sm">Delete</a></td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+</div>

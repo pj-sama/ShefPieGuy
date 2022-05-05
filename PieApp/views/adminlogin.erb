@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <title>Admin Login - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :adminnav %>
+        <div class="container">
+            <br><br>
+            <h1>Authentication Required for <span style="font-family: Molle, cursive;">SheffPieGuy Admin</span></h1>
+            <hr class="my-4">
+           <% if @failedadminauth != nil %>
+          <div class="alert alert-dismissible alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong>Login failed</strong> please try again.
+        </div>
+        <% end %>
+            <form action="/doAdminLogin" method="POST">
+                <div class="form-group">
+                    <label class="col-form-label" for="nameCheck">Username:</label>
+                    <input type="text" name="admin" class="form-control" placeholder="Username" value="<%=h params[:admin] %>" required>
+                    <label class="col-form-label" for="nameCheck">Password:</label>
+                    <input type="password" name="password" class="form-control" placeholder="example" value="<%=h params[:password] %>" required><br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <%= erb :adminfooter %>
+    </body>
+</html>

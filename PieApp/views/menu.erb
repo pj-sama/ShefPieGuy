@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <title>Menu - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :nav %>
+        <div class="container">
+            <br><br>
+            <h1>Our Menu</h1>
+            <hr class="my-4">
+          
+            <% if (@pies.nil? || @pies.empty?) %>
+                <p>There are no pies in the menu at the moment, check back later!</p>
+            <% else %>
+                <p>Take a glance at what we have to offer🥧</p>
+                <ul class="nav nav-tabs">
+                    <% @pies.each do |pie| %>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#<%=h pie[1] %>"><%=h pie[1] %></a>
+                        </li>
+                    <% end %>
+                </ul>
+                <div id="myTabContent" class="tab-content">
+                  <% @pies.each do |pie| %>
+                      <div class="tab-pane fade" id="<%=h pie[1] %>">
+                          <p><%=h pie[2] %></p>
+                          <% if (pie[3].is_a? Numeric) %>
+                              <p><%=h sprintf("Price: £%.2f", pie[3]) %></p>
+                          <% else %>
+                              <p>Price not available</p>
+                          <% end %>
+                      </div>
+                  <% end %>
+                </div>
+            <% end %>
+        </div>
+        <%= erb :footer %>
+    </body>
+</html>

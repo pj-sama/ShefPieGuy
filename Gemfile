@@ -1,0 +1,16 @@
+# A sample Gemfile
+source "https://rubygems.org"
+
+# gem "rails"
+gem "thin"
+gem "sinatra"
+gem "sinatra-contrib"
+gem "omniauth-twitter"
+gem "twitter"
+gem "json"
+gem "minitest"
+gem "capybara"
+gem "cucumber"
+gem "rspec"
+gem "simplecov"
+gem "rake"

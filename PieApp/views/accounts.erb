@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <title>Admin Accounts - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :adminnav %>
+        <div class="container">
+            <br><br>
+            <h1 class="display-3">SheffPieGuy Accounts</h1>
+            <p class="lead">Account handling</p>
+            <hr class="my-4">
+            <% unless (@uid.empty?||@uid.nil?) %>
+                <p class="lead">User Accounts (UserID only)</p>
+                <table class="table">
+                    <tr>
+                        <th>User ID</th>
+                        <th></th>
+                    </tr>
+                        <% @uid.each do |u|%>
+                            <tr>
+                                <td><%=h u %></td>
+                                <td><a href="deleteuser/<%=h u %>">Delete</a></td>
+                            </tr>
+                        <% end %>
+                </table>
+                <hr class="my-4">
+            <% else %>
+                <p class="lead">There are no user accounts</p>
+            <% end %>
+            
+            <% unless (@admin.empty?||@admin.nil?) %>
+                <p class="lead">Admin Accounts</p>
+                <table class="table">
+                    <tr>
+                        <th>Admin ID</th>
+                        <th>Username</th>
+                        <th></th>
+                    </tr>
+                    <% @admin.each do |a| %>
+                        <tr>
+                            <td><%=h a[0] %></td>
+                            <td><%=h a[1] %></td>
+                            <% unless @admin.length == 1 %>
+                                <td><a href="deleteadmin/<%=h a[0] %>">Delete</a></td>
+                            <% else %>
+                                <td>Can't delete last account</td>
+                            <% end %>
+                        </tr>
+                    <% end %>
+                </table>
+            <% end %>
+            
+            <p class="lead">Create/Update an account</p>
+            <form action="/updateadmin" method="POST">
+                <label class="col-form-label" for="adminID">AdminID of account to update:</label><br>
+                <select class="custom-select" id="adminID" name="adminID" value="<%=h params[:adminID] %>">
+                    <option value = "New">New</option>
+                    <% @admin.each do |a| %>
+                    <option value = "<%=h a[0] %>">Update <%=h a[0] %></option>
+                    <% end %>
+                </select><br>
+                <label class="col-form-label" for="username">Username</label>
+                <input type="text" name="username" class="form-control" placeholder="New Username" id="txtbxUsername" autocorrect=off autocapitalize=words value="<%=h params[:username] %>" ><br>
+                <label class="col-form-label" for="password">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="New Password" id="pwdPassword" autocorrect=off autocapitalize=words value="<%=h params[:password] %>" ><br>
+                <label class="col-form-label" for="passwordC">Password Confirmation</label>
+                <input type="password" name="passwordC" class="form-control" placeholder="Confirm New Password" id="pwdPasswordC" autocorrect=off autocapitalize=words value="<%=h params[:password] %>" ><br>
+                <button type="submit" class="btn btn-primary">Create/Update</button>
+            </form>
+        </div>
+        <%= erb :footer %>
+    </body>
+</html>

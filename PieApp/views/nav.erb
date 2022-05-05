@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">SheffPieGuy</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="home">Home</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="menu">Menu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="offers">Offers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="about">About Us</a>
+      </li>
+    </ul>
+    
+    <div class="form-inline my-2 my-lg-0">
+      <div class="collapse navbar-collapse" id="navbarColor01">
+     <% if (session[:user].nil?) %>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="login">Login</a>
+            </li>
+        </ul>
+        <% end %>
+        
+        <% unless (session[:user].nil?) %>
+        <a href="https://twitter.com/intent/tweet?screen_name=SheffPieGuy&ref_src=twsrc%5Etfw" class="twitter-mention-button" data-show-count="false">Tweet to @SheffPieGuy</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <ul class="navbar-nav ml-auto">
+       
+            <li class="nav-item">
+              <a class="nav-link" href="user">Your <span style="font-family: Molle, cursive;">SheffPieGuy</span></a>
+            </li>
+            <li class="nav-item">
+        <a class="nav-link" href="/logout">Log Out</a>
+            </li>
+        </ul>
+        <% end %>
+        </div>
+      </div>
+  </div>
+</nav>

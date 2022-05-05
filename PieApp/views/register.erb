@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <title>User Registration - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :nav %>
+        <div class="container">
+            <br><br>
+        <% if @update %>
+            <h1>Update your information</h1>
+        <% elsif @error || !@goodpostcode %>
+            <h1>There is a problem with the entered data, please enter your address</h1>
+        <% else %>
+            <h1>You need to sign up with your address</h1>
+        <% end %>
+        <hr class="my-4">
+            <form action="/register" method="POST">
+                <label class="col-form-label" for="txtbxPostCode">Post code:</label><br>
+                <input type="text" name="postcode" class="form-control" placeholder="S1 2AB - please include the space" id="txtbxPostCode" autocorrect=off autocapitalize=words value="<%=h params[:postcode] %>" required><br><br>
+                
+                <label for="txtbxHouseNum" class="col-form-label">House Number:</label><br>
+                <input type="text" name="housenum" class="form-control" placeholder="e.g. 12" id="txtbxHouseNum" autocorrect=off autocapitalize=words value="<%=h params[:housenum] %>" required><br><br>
+            
+                <label for="txtbxAdditional" class="col-form-label">Additional Info:</label><br>
+                <input type="text" name="additional" class="form-control" placeholder="Please enter any additional info" id ="txtbxAdditional" value="<%=h params[:additional] %>" ><br><br>
+            
+                <button type="submit" class="btn btn-primary">Click here to Submit</button>
+            </form>
+        </div>
+        <%= erb :footer %>
+    </body>
+</html>

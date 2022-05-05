@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <title>Order Handling - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :adminnav %>
+        <div class="container">
+            <br><br>
+            <h1>Handle <span style="font-family: Molle, cursive;">SheffPieGuy</span> Orders</h1>
+            <hr class="my-4">
+        <% if @tweetorders.length>0 %>
+            <% @activetweet = @tweetorders.first %>
+            <p>User ID: <%=h Actions.id_to_user_id(@activetweet[0]) %></p>
+            <p>Screen Name: <%=h Actions.id_to_user_screen_name(@activetweet[0]) %></p>
+            <p>Tweet Text: <%=h Actions.id_to_tweet_text(@activetweet[0]) %></p>
+            
+            <form action="/submitorder" method="POST">
+            <label class="col-form-label">User ID:</label>
+            <input type="text" name="UID" placeholder="User ID" id="UID" value="<%=h Actions.id_to_user_id(@activetweet[0]) %>" autocorrect=off required><br>
+                
+            <label class="col-form-label">Pies:</label><br>
+                <% @piemenu.each do |pie| %>
+                    <%=h pie[1] %> Quantity: <input name="<%=h pie[0] %>" class="form-control" type="text" value="0" required>
+                <% end %>
+            <button type="submit" class="btn btn-primary">Submit Order</button>
+        </form>
+        <% else %>
+            <p>Currently no tweets in the Database</p>
+        <% end %>
+
+        </div>
+        <% unless @offers.nil? %>
+            <% unless @offers.empty? %>
+                <%= erb :offertable %>
+            <% end %>
+        <% end %>
+        <% unless @useroffers.nil? %>
+            <% unless @useroffers.empty? %>
+                <%= erb :useroffertable %>
+            <% end %>
+        <% end %>
+        <%= erb :adminfooter %>
+    </body>
+</html>

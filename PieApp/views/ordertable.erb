@@ -1,0 +1,67 @@
+<div class="container">
+  <table class="table">
+    <thread>
+      <tr>
+        <th>Screen Name</th>
+        <th>Order Number</th>
+        <th>Order Contents</th>
+        <th>Order Amount</th>
+        <th>Branch</th>
+        <th>Current Status</th>
+        <th>Update Status</th>
+      </tr>
+    </thread>
+    <% @orders.each do |order| %>
+        <tr>
+          <td>@<%=h Actions.uid_to_screen_name(order[1].to_i) %></td> <!-- Twitter ID -->
+          <td><%=h order[0] %></td> <!-- Order ID -->
+          <td><!-- Order Contents -->
+            <% unless @pieorders.nil? %>
+              <% @pieorders.each do | pieidandquant | %>
+                <% if pieidandquant[0] == order[0] %>
+                  <!--In the process of addin stuff to show the pie name---->
+                  <% unless @pielist.nil? %>
+                      <% @pielist.each do |piename| %>
+                        <% if piename[0].to_s == pieidandquant[1] && pieidandquant[2] != 0 %>
+                          <ul class="list-group">
+                            <li class="list-group-item">Pie: <%=piename[1]%>   Quantity:<%=pieidandquant[2]%></li>
+                          </ul>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </td>
+
+          <td><%=sprintf("Price: £%.2f", order[4])%></td> <!-- Price -->
+          <td><% unless @locations.nil? %> <!-- Location -->
+                <% @locations.each do |place| %>
+                  <% if place[0] == order[3] %>
+                    <%=place[1]%>
+                  <% end %>
+                <% end %>
+              <% end %>
+          </td>
+
+          <td>
+              <p><%=h Actions.get_flag_name(order[2]) %></p>
+          </td>
+          <td>
+              <form class="form-inline" action="editflag/<%=h order[0] %>" method="POST">
+                  <div class="form-group">
+                  <select class="form-control" id="flagID" name="flagID" value="<%=h params[:flagID] %>">
+                  <% (0..5).each do |id| %>
+                      <% unless id==order[2] %>
+                          <option value = "<%=h id %>"><%=h Actions.get_flag_name(id) %></option>
+                      <% end %>
+                  <% end %>
+                  </select>
+                  <button type="submit" class="btn btn-default btn-sm">Apply Flag</button>
+                  </div>
+              </form>
+          </td>
+        </tr>
+        <% end %>
+  </table>
+</div>

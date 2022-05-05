@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <title>Home - SheffPieGuy</title>
+    <head>
+        <%= erb :htmlheader %>
+    </head>
+    <body>
+        <%= erb :nav %>
+        <div class="container">
+            <br><br>
+            <% if @failedauthflow != nil %>
+              <div class="alert alert-dismissible alert-danger">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              <strong>Logged out.</strong> You failed the Twitter authentication flow. This could be because you cancelled it, or because of some other error. If this error persists, please contact us.
+              </div>
+            <% end %>
+            <% if @loginstatus != nil && @loginstatus == "justloggedout" %>
+                <div class="alert alert-dismissible alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                You've now successfully logged out, thank you for using SheffPieGuy 😊
+                </div>
+                <% @loginstatus = nil %>
+            <% end %>
+            <% if @loginstatus != nil && @loginstatus == "justdeleted" %>
+                <div class="alert alert-dismissible alert-danger">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                You've now deleted your account. 😞 You can always sign up again to make a new account!
+                </div>
+            <% end %>
+            <h1>Tasty Pies in and around Sheffield😋</h1>
+            <p class="lead">Pies straight to your door in just one tweet...</p>
+            <hr class="my-4">
+            <h2>Find out more about us</h2>
+            <p>Wanna know more...? <a href="about">Find out more about SheffPieGuy</a></p>
+            <h2>What we've got to offer...</h2>
+            <p>Take a cheeky peek at our <a href="menu">menu!</a></p>
+            <h2>... and what we have got on offer😉</h2>
+            <p>If you're looking for a bargain, look no further than <a href="offers">our latest offers</a></p>
+        </div>
+        <%= erb :footer %>
+    </body>
+</html>

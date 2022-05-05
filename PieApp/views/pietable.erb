@@ -1,0 +1,31 @@
+<div class="container">
+<p class="lead">Pies in the Menu:</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Pie ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <% if (@edit=="t") %>
+            <th></th>
+        <% end %>
+    </tr>
+    </thead>
+    <% @pies.each do |pie| %>
+        <tr>
+            <% (0..2).each do |column| %>
+                <td><%=h pie[column] %></td>
+            <% end %>
+            <% if (pie[3].is_a? Numeric) %>
+                <td><%=h sprintf("£%.2f", pie[3]) %></td>
+            <% else %>
+                <td><%=h pie[3] %></td>
+            <% end %>
+            <% if (@edit=="t") %>
+                <td><a href="deletepie/<%=h pie[0] %>" class="btn btn-default btn-sm">Delete</a></td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
+</div>
